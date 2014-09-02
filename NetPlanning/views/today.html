@@ -1,0 +1,39 @@
+<div
+    data-role="view"
+    data-layout="refresh-layout"
+    data-title="Today"
+    data-model="APP.models.today">
+    <ul data-role="listview" data-bind="visible: isEmpty">
+        <li>Empty</li>
+    </ul>
+    <ul data-role="listview" data-type="group">
+        <li data-bind="visible: dsMorning.length">
+            Morning
+            <ul 
+                data-role="listview"
+                data-bind="source: dsMorning"
+                data-template="templateData">
+            </ul>
+        </li>
+        <li data-bind="visible: dsAfternoon.length">
+            Afternoon
+            <ul 
+                data-role="listview"
+                data-bind="source: dsAfternoon"
+                data-template="templateData">
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<script type="text/x-kendo-tmpl" id="templateData">
+    <div class="div-table">
+        <div class="col-name">
+            <img src="images/${img}" />
+            <span>${name}</span>                
+        </div>
+        <div class="col-time">
+            <b>${time.format('LT')}</b>
+        </div>
+    </div>
+</script>  

@@ -6,14 +6,31 @@
     var app;
 
     // create an object to store the models for each view
-    window.APP = {
+    window.APP = {}
+    /*
       models: {
-        home: {
-          title: 'Home'
+        today: {
+          title: 'Today'
+        },
+        tomorrow: {
+          title: 'tomorrow'
+        },
+        upcomings: {
+          title: 'Next 5'
+        },
+        all: {
+          title: 'All'
+        },
+        updates: {
+          title: 'Updates'
         },
         settings: {
           title: 'Settings'
         },
+        login: {
+          title: 'Login'
+        }*/
+          /*
         contacts: {
           title: 'Contacts',
           ds: new kendo.data.DataSource({
@@ -22,29 +39,32 @@
           alert: function(e) {
             alert(e.data.name);
           }
-        }
-      }
-    };
+        }*/
+      //}
+    //};
 
     // this function is called by Cordova when the application is loaded by the device
-    document.addEventListener('deviceready', function () {  
+	document.addEventListener('deviceready', function () {  
       
-      // hide the splash screen as soon as the app is ready. otherwise
-      // Cordova will wait 5 very long seconds to do it for you.
-      navigator.splashscreen.hide();
+        // hide the splash screen as soon as the app is ready. otherwise
+        // Cordova will wait 5 very long seconds to do it for you.
+		navigator.splashscreen.hide();
 
-      app = new kendo.mobile.Application(document.body, {
+        var authToken = window.localStorage.getItem("authToken");
         
-        // you can change the default transition (slide, zoom or fade)
-        transition: 'slide',
+        app = new kendo.mobile.Application(document.body, {
         
-        // comment out the following line to get a UI which matches the look
-        // and feel of the operating system
-        skin: 'flat',
-
-        // the application needs to know which view to load first
-        initial: 'views/home.html'
-      });
+            // you can change the default transition (slide, zoom or fade)
+            transition: 'slide',
+            
+            // comment out the following line to get a UI which matches the look
+            // and feel of the operating system
+            skin: 'flat',
+            
+            // the application needs to know which view to load first
+            initial: 'views/'+(authToken ? 'today' : 'login')+'.html'
+            //initial: 'views/today.html'
+        });
 
     }, false);
 
