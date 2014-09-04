@@ -1,0 +1,31 @@
+<div
+    data-role="view"
+    data-layout="refresh-layout"
+    data-title="All lessons"
+    data-model="APP.models.all">
+    <ul data-role="listview" data-bind="visible: isEmpty">
+        <li>Empty</li>
+    </ul>
+    <ul 
+        data-role="listview" 
+        data-type="group" 
+        data-bind="source: ds" 
+        data-template="allTemplate" 
+        data-header-template="headerTemplate">
+    </ul> 
+</div>
+
+<script type="text/x-kendo-tmpl" id="headerTemplate">
+    ${moment(value).format('LL')}
+</script>
+<script type="text/x-kendo-tmpl" id="allTemplate">
+    <div class="div-table">
+        <div class="col-name">
+            <img src="images/${img}" />
+            #=name#               
+        </div>
+        <div class="col-time">
+            <b>${time.format('LT')}</b>
+        </div>
+    </div>
+</script>  

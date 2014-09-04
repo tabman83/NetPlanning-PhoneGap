@@ -40,7 +40,9 @@
         APP.Engine.GetLessons().success(function(data) {
             APP.models.today.update(data.lessons);
             APP.models.tomorrow.update(data.lessons);
-            app.view().header.find(".last-updated SPAN").text(moment(data.lastCheck).format('LT'));
+            APP.models.upcomings.update(data.lessons);
+            APP.models.all.update(data.lessons);
+            app.view().header.find(".last-updated SPAN").text(moment(data.lastCheck).fromNow());//.format('LT')            
         });
     }
 

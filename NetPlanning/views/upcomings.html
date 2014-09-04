@@ -1,0 +1,26 @@
+<div
+    data-role="view"
+    data-layout="refresh-layout"
+    data-title="Next 5"
+    data-model="APP.models.upcomings">
+    <ul data-role="listview" data-bind="visible: isEmpty">
+        <li>Empty</li>
+    </ul>
+    <ul 
+        data-role="listview"
+        data-bind="source: ds"
+        data-template="upcomingsTemplate">
+    </ul>    
+</div>
+
+<script type="text/x-kendo-tmpl" id="upcomingsTemplate">
+    <div class="div-table">
+        <div class="col-name">
+            <img src="images/${img}" />
+            <span>#=name#</span>
+        </div>
+        <div class="col-time">
+            <b>${time.calendar()}</b>
+        </div>
+    </div>
+</script>       

@@ -22,10 +22,6 @@
             
             $.each( lessons, function(i, dataEl) {
                 
-                if( dataEl.kind === "dispo" || dataEl.kind === "dispo_stag2" || dataEl.kind === "indispoPonctuelle") {
-                    return true;
-                }
-                
                 var lesson = {
                     name: dataEl.name,
                     img: dataEl.kind+'.png',

@@ -17,4 +17,14 @@
 .col-name
 {
     flex: 1;
+    text-overflow: ellipsis;
+	overflow-x: hidden;
+    white-space: nowrap;
+}
+.col-name img
+{
+    border-radius: 16px;
+    height: 26px;
+    width: 26px;
+    vertical-align: middle;    
 }
