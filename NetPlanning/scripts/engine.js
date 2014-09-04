@@ -18,18 +18,19 @@
         secret: "sVkJsK41#>P_GN?:y)]FPL~r?MV3`0x-!N{4J.X4`Xu87M-<.T:+??;el@yKU_73"
     }
     
-    Engine._callApi = function(methodName, data) {
+    Engine._callApi = function(endpoint, method, data) {
         var authToken = window.localStorage.getItem("authToken");
-        var data = JSON.stringify(data || {});
-        var signature = CryptoJS.HmacMD5(data, this._config.secret);
+        var authHeader = authToken ? "Bearer "+authToken : undefined;
+        var sendData = data ? JSON.stringify(data) : undefined;
+        var signature = CryptoJS.HmacMD5(sendData || "{}", this._config.secret);
         return $.ajax({
-            type : "POST",
-            url : this._config.serverUrl+'/'+this._config.apiVersion+'/'+methodName,
+            type : method.toUpperCase(),
+            url : this._config.serverUrl+'/'+this._config.apiVersion+'/'+endpoint,
             contentType: "application/json; charset=utf-8",
-            data: data,
+            data: sendData,
             dataType: "json",
             headers : { 
-                Authorization : authToken,
+                Authorization : authHeader,
                 Signature : signature
             }
         });
@@ -40,7 +41,11 @@
             username: username,
             password: password
         }
-        return this._callApi('login', data);
+        return this._callApi('login', 'post', data);
+    }
+    
+    Engine.GetLessons = function() {
+        return this._callApi('lessons', 'get');
     }
     
     

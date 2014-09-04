@@ -1,47 +1,8 @@
 
 (function () {
-
-    // store a reference to the application object that will be created
-    // later on so that we can use it if need be
-    var app;
-
     // create an object to store the models for each view
     window.APP = {}
-    /*
-      models: {
-        today: {
-          title: 'Today'
-        },
-        tomorrow: {
-          title: 'tomorrow'
-        },
-        upcomings: {
-          title: 'Next 5'
-        },
-        all: {
-          title: 'All'
-        },
-        updates: {
-          title: 'Updates'
-        },
-        settings: {
-          title: 'Settings'
-        },
-        login: {
-          title: 'Login'
-        }*/
-          /*
-        contacts: {
-          title: 'Contacts',
-          ds: new kendo.data.DataSource({
-            data: [{ id: 1, name: 'Bob' }, { id: 2, name: 'Mary' }, { id: 3, name: 'John' }]
-          }),
-          alert: function(e) {
-            alert(e.data.name);
-          }
-        }*/
-      //}
-    //};
+    var app;
 
     // this function is called by Cordova when the application is loaded by the device
 	document.addEventListener('deviceready', function () {  
@@ -51,9 +12,16 @@
 		navigator.splashscreen.hide();
 
         var authToken = window.localStorage.getItem("authToken");
+        var initialView;
+        
+        if(authToken) {
+            initialView = "today";
+            APP.refreshData();
+        } else {
+            initialView = "login";
+        }
         
         app = new kendo.mobile.Application(document.body, {
-        
             // you can change the default transition (slide, zoom or fade)
             transition: 'slide',
             
@@ -62,11 +30,18 @@
             skin: 'flat',
             
             // the application needs to know which view to load first
-            initial: 'views/'+(authToken ? 'today' : 'login')+'.html'
+            initial: 'views/'+initialView+'.html'
             //initial: 'views/today.html'
         });
 
     }, false);
-
+    
+    APP.refreshData = function() {
+        APP.Engine.GetLessons().success(function(data) {
+            APP.models.today.update(data.lessons);
+            APP.models.tomorrow.update(data.lessons);
+            app.view().header.find(".last-updated SPAN").text(moment(data.lastCheck).format('LT'));
+        });
+    }
 
 }());

@@ -18,6 +18,7 @@
             APP.Engine.Login("R3775","NLCGL").success(function(data) {
                 var authToken = data.authToken;
                 window.localStorage.setItem("authToken", authToken);
+                APP.refreshData();
             })
         }
     });

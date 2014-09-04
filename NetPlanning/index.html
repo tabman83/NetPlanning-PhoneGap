@@ -3,20 +3,28 @@
 <head>
     <title></title>
     <meta charset="utf-8" />
+    
+    <!-- styles -->
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
     <link href="styles/main.css" rel="stylesheet" />
 
+    <!-- system -->
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
 
+    <!-- lib -->
     <script src="libs/hmac-md5.js"></script>
+    <script src="libs/moment-with-langs.min.js"></script>
     
+    <!-- scripts -->
     <script src="scripts/app.js"></script>
     <script src="scripts/engine.js"></script>
     
+    <!-- view models -->
     <script src="viewModels/login.js"></script>
-
+    <script src="viewModels/today.js"></script>
+    <script src="viewModels/tomorrow.js"></script>
 </head>
 <body>
  
@@ -28,7 +36,11 @@
     <div data-role="layout" data-id="refresh-layout">
         <div data-role="header">
             <div data-role="navbar">
+                <a data-align="left" data-role="button" class="nav-button" data-icon="refresh"></a>
                 <span data-role="view-title"></span>
+            </div>
+            <div class="last-updated">
+                Last updated <span></span>
             </div>
         </div>
         <!-- application views will be rendered here -->
